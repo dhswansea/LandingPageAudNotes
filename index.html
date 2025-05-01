@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AudNotes.ai | AI-Powered Notes for Audiologists</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #174EA6;
+            --dark-text: #1C1C1C;
+            --light-gray: #F5F7FA;
+            --mid-gray: #E1E4E8;
+            --success-green: #34A853;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--dark-text);
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        header {
+            padding: 20px 0;
+            background-color: white;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            height: 40px;
+        }
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-text);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        .nav-links a:hover {
+            color: var(--primary-blue);
+        }
+        .btn {
+            background-color: var(--primary-blue);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: background-color 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .btn:hover {
+            background-color: #0d3b7d;
+        }
+        .btn-outline {
+            background-color: transparent;
+            color: var(--primary-blue);
+            border: 2px solid var(--primary-blue);
+        }
+        .btn-outline:hover {
+            background-color: rgba(23, 78, 166, 0.1);
+        }
+        .hero {
+            padding: 100px 0 80px;
+            background-color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 40%;
+            height: 100%;
+            background-color: var(--light-gray);
+            z-index: 0;
+            clip-path: polygon(20% 0, 100% 0, 100% 100%, 0% 100%);
+        }
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            gap: 60px;
+        }
+        .hero-text {
+            flex: 1;
+        }
+        .hero-image {
+            flex: 1;
+            text-align: center;
+        }
+        .hero-image img {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        h1 {
+            font-size: 48px;
+            line-height: 1.2;
+            margin-bottom: 24px;
+            color: var(--dark-text);
+        }
+        h2 {
+            font-size: 36px;
+            line-height: 1.2;
+            margin-bottom: 24px;
+            color: var(--dark-text);
+        }
+        h3 {
+            font-size: 24px;
+            line-height: 1.3;
+            margin-bottom: 20px;
+            color: var(--dark-text);
+        }
+        p {
+            margin-bottom: 24px;
+            font-size: 18px;
+        }
+        .subtext {
+            font-size: 22px;
+            margin-bottom: 32px;
+            color: #555;
+        }
+        .benefits {
+            margin: 24px 0 32px;
+        }
+        .benefits li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+            font-size: 18px;
+        }
+        .check-icon {
+            color: var(--primary-blue);
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+        .waitlist-info {
+            font-size: 16px;
+            color: #666;
+            margin-top: 16px;
+        }
+        section {
+            padding: 80px 0;
+        }
+        .section-heading {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        .section-heading h2 {
+            margin-bottom: 16px;
+        }
+        .section-heading p {
+            max-width: 700px;
+            margin: 0 auto;
+            color: #555;
+        }
+        .pain-points {
+            background-color: var(--light-gray);
+        }
+        .cards {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        .card {
+            flex: 1;
+            min-width: 300px;
+            background-color: white;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            background-color: rgba(23, 78, 166, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+        .card-icon svg {
+            color: var(--primary-blue);
+            width: 30px;
+            height: 30px;
+        }
+        .card h3 {
+            margin-bottom: 16px;
+        }
+        .solution {
+            background-color: white;
+        }
+        .solution-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+        }
+        .solution-image {
+            flex: 1;
+        }
+        .solution-image img {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        .solution-text {
+            flex: 1;
+        }
+        .steps {
+            counter-reset: step;
+            margin: 40px 0;
+        }
+        .step {
+            display: flex;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        .step-number {
+            counter-increment: step;
+            flex-shrink: 0;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary-blue);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 20px;
+            margin-right: 24px;
+        }
+        .step-number::before {
+            content: counter(step);
+        }
+        .step-content h3 {
+            margin-bottom: 12px;
+        }
+        .founder {
+            background-color: var(--light-gray);
+        }
+        .founder-story {
+            display: flex;
+            gap: 60px;
+            align-items: center;
+        }
+        .founder-image {
+            flex: 1;
+            text-align: center;
+        }
+        .founder-image img {
+            max-width: 100%;
+            border-radius: 50%;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .founder-text {
+            flex: 2;
+        }
+        .demo {
+            background-color: white;
+            text-align: center;
+        }
+        .video-container {
+            max-width: 800px;
+            margin: 0 auto;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        .cta {
+            background-color: var(--primary-blue);
+            color: white;
+            text-align: center;
+            padding: 100px 0;
+        }
+        .cta h2 {
+            color: white;
+        }
+        .cta p {
+            color: rgba(255,255,255,0.9);
+            max-width: 700px;
+            margin: 0 auto 32px;
+        }
+        .waitlist-form {
+            max-width: 500px;
+            margin: 0 auto;
+            display: flex;
+            gap: 16px;
+        }
+        .waitlist-form input {
+            flex: 1;
+            padding: 16px;
+            border-radius: 6px;
+            border: none;
+            font-size: 16px;
+            font-family: 'Montserrat', sans-serif;
+        }
+        footer {
+            background-color: var(--dark-text);
+            color: white;
+            padding: 60px 0 30px;
+        }
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 40px;
+        }
+        .footer-logo {
+            flex: 1;
+        }
+        .footer-logo img {
+            height: 40px;
+            margin-bottom: 16px;
+        }
+        .footer-logo p {
+            color: rgba(255,255,255,0.7);
+            font-size: 16px;
+        }
+        .footer-links {
+            flex: 2;
+            display: flex;
+            justify-content: space-between;
+        }
+        .footer-links h4 {
+            margin-bottom: 20px;
+            color: white;
+        }
+        .footer-links ul {
+            list-style: none;
+        }
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        .footer-links a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .footer-links a:hover {
+            color: white;
+        }
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: rgba(255,255,255,0.5);
+        }
+        .feature-highlight {
+            font-weight: 700;
+            color: var(--primary-blue);
+        }
+        .testimonial {
+            background-color: white;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 40px;
+        }
+        .testimonial-content {
+            font-style: italic;
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        .testimonial-author-image {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 16px;
+            background-color: var(--mid-gray);
+        }
+        .testimonial-author-name {
+            font-weight: 600;
+        }
+        .testimonial-author-title {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        /* Responsive styles */
+        @media (max-width: 992px) {
+            .hero-content, .solution-wrapper, .founder-story {
+                flex-direction: column;
+            }
+            .hero-image, .solution-image, .founder-image {
+                order: -1;
+                margin-bottom: 40px;
+            }
+            .footer-content {
+                flex-direction: column;
+                gap: 40px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 36px;
+            }
+            h2 {
+                font-size: 28px;
+            }
+            .nav-links {
+                display: none;
+            }
+            .waitlist-form {
+                flex-direction: column;
+            }
+            .cards {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container nav">
+            <img src="/api/placeholder/200/50" alt="AudNotes.ai Logo" class="logo">
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#how-it-works">How It Works</a>
+                <a href="#story">Our Story</a>
+                <a href="#demo">Demo</a>
+            </div>
+            <a href="#waitlist" class="btn">Join Waitlist</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-content">
+            <div class="hero-text">
+                <h1>Turn Every Consultation Into Clinical Gold</h1>
+                <p class="subtext">AudNotes.ai creates perfect documentation and follow-ups in seconds — not hours — so you can focus on what matters most: your patients.</p>
+                <ul class="benefits">
+                    <li>
+                        <svg class="check-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z" fill="currentColor"/>
+                        </svg>
+                        <span>Audit-ready clinical notes in <span class="feature-highlight">60 seconds</span></span>
+                    </li>
+                    <li>
+                        <svg class="check-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z" fill="currentColor"/>
+                        </svg>
+                        <span>Personalised referral letters that <span class="feature-highlight">build trust</span></span>
+                    </li>
+                    <li>
+                        <svg class="check-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z" fill="currentColor"/>
+                        </svg>
+                        <span>Follow-up quotes based on <span class="feature-highlight">what patients actually said</span></span>
+                    </li>
+                    <li>
+                        <svg class="check-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z" fill="currentColor"/>
+                        </svg>
+                        <span>Ethical commercial insights to <span class="feature-highlight">increase conversions</span></span>
+                    </li>
+                </ul>
+                <a href="#waitlist" class="btn">Join the Waitlist</a>
+                <p class="waitlist-info">Launching Q3-2025 with only 100 clinics</p>
+            </div>
+            <div class="hero-image">
+                <img src="/api/placeholder/500/350" alt="AudNotes.ai in action" />
+            </div>
+        </div>
+    </section>
+
+    <!-- Pain Points Section -->
+    <section class="pain-points" id="features">
+        <div class="container">
+            <div class="section-heading">
+                <h2>Paperwork Eating Into Your Patient Time?</h2>
+                <p>You trained to help people hear better — not to battle admin between appointments.</p>
+            </div>
+            <div class="cards">
+                <div class="card">
+                    <div class="card-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM13 17H11V15H13V17ZM13 13H11V7H13V13Z" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <h3>Compliance Risk</h3>
+                    <p>Unfinished or rushed notes create serious compliance issues that can threaten your practice and patient care.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M11.8 10.9C9.53 10.31 8.8 9.7 8.8 8.75C8.8 7.66 9.81 6.9 11.5 6.9C13.28 6.9 13.94 7.75 14 9H16.21C16.14 7.28 15.09 5.7 13 5.19V3H10V5.16C8.06 5.58 6.5 6.84 6.5 8.77C6.5 11.08 8.41 12.23 11.2 12.9C13.7 13.5 14.2 14.38 14.2 15.31C14.2 16 13.71 17.1 11.5 17.1C9.44 17.1 8.63 16.18 8.5 15H6.32C6.44 17.19 8.08 18.42 10 18.83V21H13V18.85C14.95 18.48 16.5 17.35 16.5 15.3C16.5 12.46 14.07 11.49 11.8 10.9Z" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <h3>Lost Revenue</h3>
+                    <p>Generic follow-ups fail to address patient-specific concerns, leading to lower conversion rates and missed revenue.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M11.99 2C6.47 2 2 6.48 2 12C2 17.52 6.47 22 11.99 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 11.99 2ZM12 20C7.58 20 4 16.42 4 12C4 7.58 7.58 4 12 4C16.42 4 20 7.58 20 12C20 16.42 16.42 20 12 20ZM12.5 7H11V13L16.25 16.15L17 14.92L12.5 12.25V7Z" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <h3>Time Theft</h3>
+                    <p>Administrative burden steals precious hours you could spend helping more patients or enjoying your life outside work.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section class="solution">
+        <div class="container solution-wrapper">
+            <div class="solution-text">
+                <h2>AudNotes Handles It — Automatically</h2>
+                <p>Built by an audiologist who understands exactly what you need in your practice.</p>
+                <ul class="benefits">
+                    <li>
+                        <svg class="check-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z" fill="currentColor"/>
+                        </svg>
+                        <span>Reclaim <span class="feature-highlight">5+ hours every week</span> for patient care or personal time</span>
+                    </li>
+                    <li>
+                        <svg class="check-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z" fill="currentColor"/>
+                        </svg>
+                        <span>Create <span class="feature-highlight">comprehensive clinical documentation</span> with a few clicks</span>
+                    </li>
+                    <li>
+                        <svg class="check-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z" fill="currentColor"/>
+                        </svg>
+                        <span>Generate <span class="feature-highlight">personalised follow-ups</span> that convert more patients</span>
+                    </li>
+                    <li>
+                        <svg class="check-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z" fill="currentColor"/>
+                        </svg>
+                        <span>Receive <span class="feature-highlight">ethical commercial coaching</span> to improve patient conversions</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="solution-image">
+                <img src="/api/placeholder/500/350" alt="AudNotes.ai features" />
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works" id="how-it-works" style="background-color: var(--light-gray);">
+        <div class="container">
+            <div class="section-heading">
+                <h2>3 Simple Steps — Then You're Done</h2>
+                <p>AudNotes.ai seamlessly integrates into your workflow with minimal disruption.</p>
+            </div>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number"></div>
+                    <div class="step-content">
+                        <h3>Record Your Consultation</h3>
+                        <p>Simply record your patient consultations using our secure HIPAA and GDPR-compliant app.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number"></div>
+                    <div class="step-content">
+                        <h3>AI Generates Everything You Need</h3>
+                        <p>AudNotes instantly creates clinical notes, referral letters, and personalised follow-up messages — all based on what was actually discussed.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number"></div>
+                    <div class="step-content">
+                        <h3>Review and Send</h3>
+                        <p>Quickly check the AI-generated content, make any needed adjustments, and send with confidence — saving hours of administrative work.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Founder Story Section -->
+    <section class="founder" id="story">
+        <div class="container founder-story">
+            <div class="founder-text">
+                <h2>Built By an Audiologist Who Hated Admin</h2>
+                <p>"I'm Tom Devonald, an audiologist and clinic owner in Swansea, Wales.</p>
+                <p>Like you, I also <strong>hate</strong> admin. A few months ago, I was so fed up with it eating into my time and ruining the flow of being fully present during consultations.</p>
+                <p>I knew there had to be a better way. So I built an AI assistant that could handle the admin for me — automatically generating detailed notes, personalised follow-ups, and even giving me ethical feedback on how to improve conversions.</p>
+                <p>The results? I saved <strong>5+ hours every week</strong> and saw my conversion rates climb without feeling like I was 'selling' to patients.</p>
+                <p>When colleagues saw this, they immediately asked if they could use it too. That's why I'm preparing to launch AudNotes.ai for just 100 clinics in Q3-2025.</p>
+                <p><strong>This is the admin assistant I wish I'd had years ago.</strong>"</p>
+            </div>
+            <div class="founder-image">
+                <img src="/api/placeholder/300/300" alt="Tom Devonald, Audiologist and Founder" />
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Section -->
+    <section class="demo" id="demo">
+        <div class="container">
+            <div class="section-heading">
+                <h2>See AudNotes.ai in Action</h2>
+                <p>Watch how I use AudNotes.ai in my own clinic to save time and convert more patients — automatically.</p>
+            </div>
+            <!-- This section will have an embedded video from Carrd -->
+            <div class="video-container">
+                <!-- Placeholder for Carrd video embed -->
+                <img src="/api/placeholder/800/450" alt="AudNotes.ai Demo Video Placeholder" />
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta" id="waitlist">
+        <div class="container">
+            <h2>Want In When We Launch?</h2>
+            <p>We're preparing to launch a fully compliant clinic version of AudNotes.ai in Q3-2025, but we are only launching with just 100 clinics. Join the waitlist now to secure your spot.</p>
+            <!-- Placeholder for getformly.app form to be embedded in Carrd -->
+            <div class="waitlist-form">
+                <!-- Form will be embedded via Carrd -->
+                <input type="email" placeholder="Your email address" required>
+                <button type="submit" class="btn">Join the Waitlist</button>
+            </div>
+            <p style="margin-top: 20px; font-size: 16px;">No spam. Just early access and launch updates.</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="/api/placeholder/200/50" alt="AudNotes.ai Logo">
+                    <p>AudNotes.ai is transforming how audiologists manage their practices with AI-powered tools that save time and improve patient care.</p>
+                </div>
+                <div class="footer-links">
+                    <div>
+                        <h4>Product</h4>
+                        <ul>
+                            <li><a href="#features">Features</a></li>
+                            <li><a href="#how-it-works">How It Works</a></li>
+                            <li><a href="#demo">Demo</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>Company</h4>
+                        <ul>
+                            <li><a href="#story">Our Story</a></li>
+                            <li><a href="#waitlist">Waitlist</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div>© 2025 AudNotes.ai. All rights reserved.</div>
+                <div>
+                    <a href="#" style="color: rgba(255,255,255,0.5); margin-right: 20px;">Privacy Policy</a>
+                    <a href="#" style="color: rgba(255,255,255,0.5);">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
